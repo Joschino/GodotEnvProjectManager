@@ -1,3 +1,5 @@
+namespace GodotEnvProjectManager;
+
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
@@ -9,12 +11,12 @@ public interface IProjectInformation : IPanel;
 public partial class ProjectInformation : Panel, IProjectInformation
 {
 	public override void _Notification(int what) => this.Notify(what);
-	
+
 	[Node("%GameName")] ILabel _gameNameLabel { get; set; } = default;
 	[Node("%GodotVersion")] ILabel _godotVersionLabel { get; set; } = default;
 	[Node("%Renderer")] ILabel _rendererLabel { get; set; } = default;
 	[Node("%ProjectType")] ILabel _projectTypeLabel { get; set; } = default;
-	
+
 	private string _godotVersion = string.Empty;
 	private string _gameName = string.Empty;
 	private string _renderer = string.Empty;
@@ -35,6 +37,6 @@ public partial class ProjectInformation : Panel, IProjectInformation
 		_renderer = renderer;
 		_projectType = projectType;
 	}
-	
-	
+
+
 }

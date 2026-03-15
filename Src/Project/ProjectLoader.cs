@@ -1,3 +1,5 @@
+namespace GodotEnvProjectManager;
+
 using Godot;
 using System.IO;
 using System.Threading.Tasks;
