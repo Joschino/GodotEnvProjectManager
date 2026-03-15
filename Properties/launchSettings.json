@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "🕹 Debug Game": {
+      "commandName": "Executable",
+      "executablePath": "%GODOT%",
+      "workingDirectory": "$(SolutionDir)",
+      "commandLineArgs": "--path \"./\""
+    },
+    "🧪 Debug Tests": {
+      "commandName": "Executable",
+      "executablePath": "%GODOT%",
+      "workingDirectory": "$(SolutionDir)",
+      "commandLineArgs": "--path \"./\" --run-tests --quit-on-finish"
+    }
+  }
+}

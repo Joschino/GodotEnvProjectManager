@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cnfm1vjyx0fy6"]
+
+[ext_resource type="Script" uid="uid://k6yhjeapi4jn" path="res://Src/Project/ProjectInformation.cs" id="1_qmpcb"]
+
+[node name="ProjectInfomartion" type="Panel" unique_id=733777891]
+clip_contents = true
+custom_minimum_size = Vector2(0, 46)
+offset_right = 300.0
+offset_bottom = 46.0
+script = ExtResource("1_qmpcb")
+
+[node name="GameName" type="Label" parent="." unique_id=347300014]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+
+[node name="GodotVersion" type="Label" parent="." unique_id=1390816894]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_top = 23.0
+offset_right = 150.0
+offset_bottom = 46.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+
+[node name="Renderer" type="Label" parent="." unique_id=799676938]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_left = 150.0
+offset_right = 300.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+
+[node name="ProjectType" type="Label" parent="." unique_id=2131053014]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_left = 150.0
+offset_top = 23.0
+offset_right = 300.0
+offset_bottom = 46.0
+size_flags_horizontal = 0
+size_flags_vertical = 1

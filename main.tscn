@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://brfppxfh4bjj3"]
+
+[ext_resource type="Script" uid="uid://ddqu2f1ngu36b" path="res://Src/Project/ProjectLoader.cs" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cnfm1vjyx0fy6" path="res://Src/Project/ProjectInfomartion.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node" unique_id=2134240099]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1064238921]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer" unique_id=873593001]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 31.0
+offset_right = -50.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer" unique_id=1165485793]
+layout_mode = 2
+
+[node name="Projects" type="Panel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer" unique_id=1645420382 node_paths=PackedStringArray("_projectParent")]
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 2
+script = ExtResource("1_ig7tw")
+_projectParent = NodePath("ScrollContainer/VBoxContainer")
+_projectInfos = ExtResource("2_0xm2m")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Projects" unique_id=645375411]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Projects/ScrollContainer" unique_id=1127559889]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
