@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnfm1vjyx0fy6"]
 
-[ext_resource type="Script" uid="uid://k6yhjeapi4jn" path="res://Src/Project/ProjectInformation.cs" id="1_qmpcb"]
+[ext_resource type="Script" uid="uid://k6yhjeapi4jn" path="res://Src/Projects/ProjectInformation.cs" id="1_qmpcb"]
 
 [node name="ProjectInfomartion" type="Panel" unique_id=733777891]
 clip_contents = true
