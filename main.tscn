@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brfppxfh4bjj3"]
 
-[ext_resource type="Script" uid="uid://ddqu2f1ngu36b" path="res://Src/Projects/ProjectLoader.cs" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://cnfm1vjyx0fy6" path="res://Src/Projects/ProjectInfomartion.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://mnbkorlsrlrg" path="res://Src/Versions/Versions.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cl2dou6hns7ry" path="res://Src/Projects/Projects.tscn" id="1_ig7tw"]
 
 [node name="Main" type="Node" unique_id=2134240099]
 
@@ -21,39 +21,8 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer" unique_id=1165485793]
 layout_mode = 2
 
-[node name="Versions" type="Panel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer" unique_id=2077785848]
-custom_minimum_size = Vector2(250, 0)
+[node name="Versions" parent="CanvasLayer/AspectRatioContainer/HBoxContainer" unique_id=2122878413 instance=ExtResource("1_0xm2m")]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Versions" unique_id=1036357523]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Versions/ScrollContainer" unique_id=285403411]
+[node name="Projects" parent="CanvasLayer/AspectRatioContainer/HBoxContainer" unique_id=704935907 instance=ExtResource("1_ig7tw")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Projects" type="Panel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer" unique_id=1645420382 node_paths=PackedStringArray("_projectParent")]
-custom_minimum_size = Vector2(750, 0)
-layout_mode = 2
-script = ExtResource("1_ig7tw")
-_projectParent = NodePath("ScrollContainer/VBoxContainer")
-_projectInfos = ExtResource("2_0xm2m")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Projects" unique_id=645375411]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Projects/ScrollContainer" unique_id=1127559889]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://mnbkorlsrlrg"]
+
+[ext_resource type="Script" uid="uid://cqsh2gxngoxxg" path="res://Src/Versions/VersionsLoader.cs" id="1_f1qv8"]
+[ext_resource type="PackedScene" uid="uid://dhi8pp3yb63my" path="res://Src/Versions/VersionInformation.tscn" id="2_8nbx8"]
+
+[node name="Versions" type="Panel" unique_id=2122878413]
+custom_minimum_size = Vector2(250, 0)
+script = ExtResource("1_f1qv8")
+_versionInformation = ExtResource("2_8nbx8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1203250174]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VersionsParent" type="VBoxContainer" parent="ScrollContainer" unique_id=1588998411]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -30,7 +30,7 @@ public partial class ProjectInformation : Panel, IProjectInformation
 		_projectTypeLabel.SetText(_projectType);
 	}
 
-	public void Setup(string version, string gameName, string renderer, string projectType)
+	public void SetValues(string version, string gameName, string renderer, string projectType)
 	{
 		_godotVersion = version;
 		_gameName = gameName;

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dhi8pp3yb63my"]
+
+[ext_resource type="Script" uid="uid://byrrvdfcfbpwa" path="res://Src/Versions/VersionInformation.cs" id="1_1s052"]
+
+[node name="VersionInformation" type="Panel" unique_id=363917050]
+custom_minimum_size = Vector2(35, 79)
+offset_right = 35.0
+offset_bottom = 79.0
+script = ExtResource("1_1s052")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=167463085]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 77.0
+
+[node name="VersionName" type="Label" parent="HBoxContainer" unique_id=1475975634]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test"
+
+[node name="IsInstalled" type="Label" parent="HBoxContainer" unique_id=1882957111]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test"
+
+[node name="IsMonoInstalled" type="Label" parent="HBoxContainer" unique_id=524303927]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test"

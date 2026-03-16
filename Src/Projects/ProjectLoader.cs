@@ -1,17 +1,26 @@
 namespace GodotEnvProjectManager;
 
+using System;
 using Godot;
 using System.IO;
 using System.Threading.Tasks;
+using Chickensoft.AutoInject;
+using Chickensoft.GodotNodeInterfaces;
+using Chickensoft.Introspection;
 
-public partial class ProjectLoader : Node
+public interface IProjectLoader : INode;
+
+[Meta(typeof(IAutoNode))]
+public partial class ProjectLoader : Node, IProjectLoader
 {
-	const string DEFAULT_FOLDER = "D:\\Godot";
+	public override void _Notification(int what) => this.Notify(what);
 
-	[Export] VBoxContainer _projectParent;
-	[Export] PackedScene _projectInfos;
+	private const string DEFAULT_FOLDER = "D:\\Godot";
 
-	public override async void _Ready()
+	[Node("%ProjectsParent")] private IVBoxContainer ProjectParent { get; set; } = default!;
+	[Export] private PackedScene _projectInfos;
+
+	public void OnResolved()
 	{
 		foreach (var gameDirectory in Directory.GetDirectories(DEFAULT_FOLDER))
 		{
@@ -34,23 +43,23 @@ public partial class ProjectLoader : Node
 		var sections = fileText.Split('[');
 		foreach (var section in sections)
 		{
-			if (section.StartsWith("application"))
+			if (section.StartsWith("application", StringComparison.InvariantCulture))
 			{
 				var parameters = section.Split("\n");
 				var gameName = "DNLP";
 				foreach (var parameter in parameters)
 				{
-					if (parameter.StartsWith("config/name"))
+					if (parameter.StartsWith("config/name", StringComparison.InvariantCulture))
 					{
 						gameName = CleanString(parameter.Replace("config/name=", ""));
 					}
-					if (parameter.StartsWith("config/features=PackedStringArray"))
+					if (parameter.StartsWith("config/features=PackedStringArray", StringComparison.InvariantCulture))
 					{
 						var features = parameter.Split('(')[1].Split(',');
 						var newInformation = _projectInfos.Instantiate<ProjectInformation>();
 						var projectType = features.Length > 2 ? features[1] : "GD";
-						newInformation.Setup(CleanString(features[0]), gameName, CleanString(features[^1]),CleanString(projectType));
-						_projectParent.AddChild(newInformation);
+						newInformation.SetValues(CleanString(features[0]), gameName, CleanString(features[^1]),CleanString(projectType));
+						ProjectParent.AddChild(newInformation);
 						break;
 					}
 				}
