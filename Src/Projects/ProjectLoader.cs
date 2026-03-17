@@ -15,14 +15,37 @@ public partial class ProjectLoader : Node, IProjectLoader
 {
 	public override void _Notification(int what) => this.Notify(what);
 
-	private const string DEFAULT_FOLDER = "D:\\Godot";
+	private const string SECTION_NAME = "Prferences";
+	private const string FOLDER_PATH_KEY = "FolderPath";
+	private const string CONFIG_PATH = "user://config.cfg";
 
 	[Node("%ProjectsParent")] private IVBoxContainer ProjectParent { get; set; } = default!;
+	[Node("%ChooseFolder")] private IButton ChooseFolderButton { get; set; } = default!;
+	[Node("%FileDialog")] private IFileDialog FileDialog { get; set; } = default!;
+
 	[Export] private PackedScene _projectInfos;
 
 	public void OnResolved()
 	{
-		foreach (var gameDirectory in Directory.GetDirectories(DEFAULT_FOLDER))
+		var config = new ConfigFile();
+
+		var error = config.Load(CONFIG_PATH);
+
+		if (error == Error.Ok)
+		{
+			LoadFolder((string)config.GetValue(SECTION_NAME, FOLDER_PATH_KEY));
+		}
+
+		ChooseFolderButton.Pressed += FileDialog.Show;
+		FileDialog.DirSelected += LoadFolder;
+	}
+
+	public void LoadFolder(string dir)
+	{
+		var config = new ConfigFile();
+		config.SetValue(SECTION_NAME, FOLDER_PATH_KEY, dir);
+		config.Save(CONFIG_PATH);
+		foreach (var gameDirectory in Directory.GetDirectories(dir))
 		{
 			foreach (var file in Directory.GetFiles(gameDirectory))
 			{
@@ -58,7 +81,7 @@ public partial class ProjectLoader : Node, IProjectLoader
 						var features = parameter.Split('(')[1].Split(',');
 						var newInformation = _projectInfos.Instantiate<ProjectInformation>();
 						var projectType = features.Length > 2 ? features[1] : "GD";
-						newInformation.SetValues(CleanString(features[0]), gameName, CleanString(features[^1]),CleanString(projectType));
+						newInformation.SetValues(CleanString(features[0]), gameName, CleanString(features[^1]),CleanString(projectType), projectFilePath);
 						ProjectParent.AddChild(newInformation);
 						break;
 					}

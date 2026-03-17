@@ -4,11 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://cnfm1vjyx0fy6" path="res://Src/Projects/ProjectInfomartion.tscn" id="2_0d0iq"]
 
 [node name="Projects" type="Panel" unique_id=704935907]
-custom_minimum_size = Vector2(750, 0)
+custom_minimum_size = Vector2(500, 150)
 script = ExtResource("1_hvjgf")
 _projectInfos = ExtResource("2_0d0iq")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=391175190]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=627189892]
+unique_name_in_owner = true
+title = "Open a Directory"
+file_mode = 2
+use_native_dialog = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1413028844]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +22,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProjectsParent" type="VBoxContainer" parent="ScrollContainer" unique_id=1392374330]
+[node name="ChooseFolder" type="Button" parent="VBoxContainer" unique_id=281995430]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Choose Folder"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=391175190]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ProjectsParent" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=1392374330]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
