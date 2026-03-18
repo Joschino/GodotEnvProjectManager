@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using FileAccess = Godot.FileAccess;
 
 public interface IProjectLoader : INode;
 
@@ -15,9 +16,9 @@ public partial class ProjectLoader : Node, IProjectLoader
 {
 	public override void _Notification(int what) => this.Notify(what);
 
-	private const string SECTION_NAME = "Prferences";
-	private const string FOLDER_PATH_KEY = "FolderPath";
-	private const string CONFIG_PATH = "user://config.cfg";
+	private const string SAVE_SECTION_NAME = "Prferences";
+	private const string SAVE_FOLDER_PATH_KEY = "FolderPath";
+	private const string SAVE_CONFIG_PATH = "user://config.cfg";
 
 	[Node("%ProjectsParent")] private IVBoxContainer ProjectParent { get; set; } = default!;
 	[Node("%ChooseFolder")] private IButton ChooseFolderButton { get; set; } = default!;
@@ -29,11 +30,11 @@ public partial class ProjectLoader : Node, IProjectLoader
 	{
 		var config = new ConfigFile();
 
-		var error = config.Load(CONFIG_PATH);
+		var error = config.Load(SAVE_CONFIG_PATH);
 
 		if (error == Error.Ok)
 		{
-			LoadFolder((string)config.GetValue(SECTION_NAME, FOLDER_PATH_KEY));
+			LoadFolder((string)config.GetValue(SAVE_SECTION_NAME, SAVE_FOLDER_PATH_KEY));
 		}
 
 		ChooseFolderButton.Pressed += FileDialog.Show;
@@ -43,8 +44,8 @@ public partial class ProjectLoader : Node, IProjectLoader
 	public void LoadFolder(string dir)
 	{
 		var config = new ConfigFile();
-		config.SetValue(SECTION_NAME, FOLDER_PATH_KEY, dir);
-		config.Save(CONFIG_PATH);
+		config.SetValue(SAVE_SECTION_NAME, SAVE_FOLDER_PATH_KEY, dir);
+		config.Save(SAVE_CONFIG_PATH);
 		foreach (var gameDirectory in Directory.GetDirectories(dir))
 		{
 			foreach (var file in Directory.GetFiles(gameDirectory))
@@ -52,46 +53,40 @@ public partial class ProjectLoader : Node, IProjectLoader
 				var fileName = Path.GetFileName(file);
 				if (fileName == "project.godot")
 				{
-					_ = LoadProject(file);
+					LoadProject(file);
 				}
 			}
 		}
 	}
 
-	private async Task LoadProject(string projectFilePath)
+	private void LoadProject(string projectFilePath)
 	{
-		using StreamReader reader = new (projectFilePath);
-		var fileText = await reader.ReadToEndAsync();
-
-		var sections = fileText.Split('[');
-		foreach (var section in sections)
+		var projectConfig = new ConfigFile();
+		projectConfig.Load(projectFilePath);
+		var gameName = (string)projectConfig.GetValue("application", "config/name");
+		var features = (string[])projectConfig.GetValue("application", "config/features");
+		var projectIconInternal = (string)projectConfig.GetValue("application", "config/icon");
+		var projectIconPath =
+			Path.Combine(projectFilePath.Replace("project.godot", ""), projectIconInternal.Split("//")[1]);
+		var projectType = "GD";
+		if (features.Length > 2)
 		{
-			if (section.StartsWith("application", StringComparison.InvariantCulture))
-			{
-				var parameters = section.Split("\n");
-				var gameName = "DNLP";
-				foreach (var parameter in parameters)
-				{
-					if (parameter.StartsWith("config/name", StringComparison.InvariantCulture))
-					{
-						gameName = CleanString(parameter.Replace("config/name=", ""));
-					}
-					if (parameter.StartsWith("config/features=PackedStringArray", StringComparison.InvariantCulture))
-					{
-						var features = parameter.Split('(')[1].Split(',');
-						var newInformation = _projectInfos.Instantiate<ProjectInformation>();
-						var projectType = features.Length > 2 ? features[1] : "GD";
-						newInformation.SetValues(CleanString(features[0]), gameName, CleanString(features[^1]),CleanString(projectType), projectFilePath);
-						ProjectParent.AddChild(newInformation);
-						break;
-					}
-				}
-			}
+			projectType = "C#";
 		}
+		var newInformation = _projectInfos.Instantiate<ProjectInformation>();
+		newInformation.SetValues(features[0], gameName, features[^1], projectType, projectFilePath, LoadProjectIcon(projectIconPath));
+		ProjectParent.AddChild(newInformation);
 	}
 
-	private string CleanString(string stringToClean)
+	private Texture2D LoadProjectIcon(string projectIconPath)
 	{
-		return stringToClean.Replace("\"", "").Replace(")", "");
+		var iconFile = FileAccess.Open(projectIconPath, FileAccess.ModeFlags.Read);
+		var bytes = iconFile.GetBuffer((long)iconFile.GetLength());
+		var image = new Image();
+		var data = image.LoadSvgFromBuffer(bytes);
+		var imageTexture = new ImageTexture();
+		imageTexture.SetImage(image);
+		iconFile.Close();
+		return imageTexture;
 	}
 }

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnfm1vjyx0fy6"]
 
 [ext_resource type="Script" uid="uid://k6yhjeapi4jn" path="res://Src/Projects/ProjectInformation.cs" id="1_qmpcb"]
+[ext_resource type="Texture2D" uid="uid://dlh2ns1aaxa5g" path="res://icon.svg" id="2_1dfas"]
 
 [node name="ProjectInfomartion" type="Panel" unique_id=733777891]
 clip_contents = true
@@ -9,42 +10,72 @@ offset_right = 300.0
 offset_bottom = 46.0
 script = ExtResource("1_qmpcb")
 
-[node name="GameName" type="Label" parent="." unique_id=347300014]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=23726986]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProjectIcon" type="TextureRect" parent="HBoxContainer" unique_id=1815880624]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_1dfas")
+expand_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer" unique_id=1437402362]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GameName" type="Label" parent="HBoxContainer/Control" unique_id=347300014]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 0
+layout_mode = 1
 offset_right = 150.0
 offset_bottom = 23.0
 size_flags_horizontal = 0
 size_flags_vertical = 1
 
-[node name="GodotVersion" type="Label" parent="." unique_id=1390816894]
+[node name="GodotVersion" type="Label" parent="HBoxContainer/Control" unique_id=1390816894]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 0
-offset_top = 23.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
 offset_right = 150.0
-offset_bottom = 46.0
+grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 1
 
-[node name="Renderer" type="Label" parent="." unique_id=799676938]
+[node name="Renderer" type="Label" parent="HBoxContainer/Control" unique_id=799676938]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 0
-offset_left = 150.0
-offset_right = 300.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
 offset_bottom = 23.0
+grow_horizontal = 0
 size_flags_horizontal = 0
 size_flags_vertical = 1
 
-[node name="ProjectType" type="Label" parent="." unique_id=2131053014]
+[node name="ProjectType" type="Label" parent="HBoxContainer/Control" unique_id=2131053014]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 0
-offset_left = 150.0
-offset_top = 23.0
-offset_right = 300.0
-offset_bottom = 46.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 1

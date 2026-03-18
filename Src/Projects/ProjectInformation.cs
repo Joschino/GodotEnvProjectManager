@@ -17,12 +17,14 @@ public partial class ProjectInformation : Panel, IProjectInformation
 	[Node("%GodotVersion")] ILabel _godotVersionLabel { get; set; } = default;
 	[Node("%Renderer")] ILabel _rendererLabel { get; set; } = default;
 	[Node("%ProjectType")] ILabel _projectTypeLabel { get; set; } = default;
+	[Node("%ProjectIcon")] ITextureRect _projectIconTextureRect { get; set; } = default;
 
 	private string _godotVersion = string.Empty;
 	private string _gameName = string.Empty;
 	private string _renderer = string.Empty;
 	private string _projectType = string.Empty;
 	private string _fullPath = string.Empty;
+	private Texture2D _projectIcon;
 
 	public void OnResolved()
 	{
@@ -30,15 +32,17 @@ public partial class ProjectInformation : Panel, IProjectInformation
 		_godotVersionLabel.SetText(_godotVersion);
 		_rendererLabel.SetText(_renderer);
 		_projectTypeLabel.SetText(_projectType);
+		_projectIconTextureRect.Texture = _projectIcon;
 	}
 
-	public void SetValues(string version, string gameName, string renderer, string projectType, string fullPath)
+	public void SetValues(string version, string gameName, string renderer, string projectType, string fullPath, Texture2D projectIcon)
 	{
 		_godotVersion = version;
 		_gameName = gameName;
 		_renderer = renderer;
 		_projectType = projectType;
 		_fullPath = fullPath;
+		_projectIcon = projectIcon;
 	}
 
 	public override void _GuiInput(InputEvent @event)

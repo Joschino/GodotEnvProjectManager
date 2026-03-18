@@ -8,22 +8,22 @@ offset_right = 35.0
 offset_bottom = 79.0
 script = ExtResource("1_1s052")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=167463085]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=167463085]
 layout_mode = 0
 offset_right = 35.0
 offset_bottom = 77.0
 
-[node name="VersionName" type="Label" parent="HBoxContainer" unique_id=1475975634]
+[node name="VersionName" type="Label" parent="VBoxContainer" unique_id=1475975634]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test"
 
-[node name="IsInstalled" type="Label" parent="HBoxContainer" unique_id=1882957111]
+[node name="IsInstalled" type="Label" parent="VBoxContainer" unique_id=1882957111]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test"
 
-[node name="IsMonoInstalled" type="Label" parent="HBoxContainer" unique_id=524303927]
+[node name="IsMonoInstalled" type="Label" parent="VBoxContainer" unique_id=524303927]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test"
