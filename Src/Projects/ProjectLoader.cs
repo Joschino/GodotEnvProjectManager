@@ -19,6 +19,8 @@ public partial class ProjectLoader : Node, IProjectLoader
 	private const string SAVE_SECTION_NAME = "Prferences";
 	private const string SAVE_FOLDER_PATH_KEY = "FolderPath";
 	private const string SAVE_CONFIG_PATH = "user://config.cfg";
+	private const string GODOT_PROJECT_TYPE = "GD";
+	private const string DOTNET_PROJECT_TYPE = "C#";
 
 	[Node("%ProjectsParent")] private IVBoxContainer ProjectParent { get; set; } = default!;
 	[Node("%ChooseFolder")] private IButton ChooseFolderButton { get; set; } = default!;
@@ -68,10 +70,10 @@ public partial class ProjectLoader : Node, IProjectLoader
 		var projectIconInternal = (string)projectConfig.GetValue("application", "config/icon");
 		var projectIconPath =
 			Path.Combine(projectFilePath.Replace("project.godot", ""), projectIconInternal.Split("//")[1]);
-		var projectType = "GD";
+		var projectType = GODOT_PROJECT_TYPE;
 		if (features.Length > 2)
 		{
-			projectType = "C#";
+			projectType = DOTNET_PROJECT_TYPE;
 		}
 		var newInformation = _projectInfos.Instantiate<ProjectInformation>();
 		newInformation.SetValues(features[0], gameName, features[^1], projectType, projectFilePath, LoadProjectIcon(projectIconPath));

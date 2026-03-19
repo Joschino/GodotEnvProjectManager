@@ -81,7 +81,7 @@ public partial class VersionsLoader : Node, IVersionsLoader
 
 		foreach (var version in output.Split("\n").Where(x => !string.IsNullOrEmpty(x)))
 		{
-			var isMonoInstallation = version.Contains('*', StringComparison.InvariantCulture);
+			var isMonoInstallation = version.Contains("dotnet", StringComparison.InvariantCulture);
 			AddVersion(version, !isMonoInstallation, isMonoInstallation);
 		}
 	}
